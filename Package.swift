@@ -15,7 +15,7 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/maplibre/maplibre-gl-native-distribution",
+            url: "https://github.com/maplibre/maplibre-gl-native-distribution.git",
             from: "5.13.0"
         )
     ],

@@ -429,7 +429,7 @@
 /* Begin XCRemoteSwiftPackageReference section */
 		AA0B00012C9F000100000001 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/maplibre/maplibre-gl-native-distribution";
+			repositoryURL = "https://github.com/maplibre/maplibre-gl-native-distribution.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.13.0;
