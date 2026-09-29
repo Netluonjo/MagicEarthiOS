@@ -19,6 +19,7 @@ xcuserdata/
 Packages/
 Package.pins
 Package.resolved
+!**/xcshareddata/**/Package.resolved
 
 # OS
 .DS_Store
