@@ -57,6 +57,38 @@ class RoutingEngine {
         return calculateOfflineFallbackRoute(origin: origin, destination: destination, mode: mode)
     }
     
+    // MARK: - Completion-handler Bridge Methods
+    func route(
+        from: CLLocationCoordinate2D,
+        to: CLLocationCoordinate2D,
+        mode: TransportMode = .car,
+        truckConfig: TruckConfig? = nil,
+        completion: @escaping (RouteResult?) -> Void
+    ) {
+        if let config = truckConfig {
+            self.truckConfig = config
+        }
+        Task {
+            let res = await calculateRoute(origin: from, destination: to, mode: mode)
+            await MainActor.run {
+                completion(res)
+            }
+        }
+    }
+    
+    func snapCoordinatesToRoads(
+        coordinates: [CLLocationCoordinate2D],
+        mode: TransportMode = .pedestrian,
+        completion: @escaping (RouteResult?) -> Void
+    ) {
+        Task {
+            let res = await buildCustomRunningRoute(drawnPoints: coordinates, snapToOsm: true)
+            await MainActor.run {
+                completion(res)
+            }
+        }
+    }
+    
     // MARK: - Running Route Road Snapping
     func buildCustomRunningRoute(
         drawnPoints: [CLLocationCoordinate2D],
@@ -490,7 +522,7 @@ class RoutingEngine {
             trafficCondition: "🏃 Cung đường chạy bộ tự do (~\(calories) kcal)",
             surfacePavedPct: 85,
             surfaceUnpavedPct: 15,
-            hasWaypoints = true
+            hasWaypoints: true
         )
         return RouteResult(metrics: metrics, coordinates: drawnPoints, steps: [], isSnappedToRoads: false)
     }
@@ -510,7 +542,7 @@ class RoutingEngine {
             trafficCondition: "Lộ trình ước tính ngoại tuyến",
             surfacePavedPct: 90,
             surfaceUnpavedPct: 10,
-            hasWaypoints = false
+            hasWaypoints: false
         )
         return RouteResult(metrics: metrics, coordinates: [origin, destination], steps: [], isSnappedToRoads: false)
     }

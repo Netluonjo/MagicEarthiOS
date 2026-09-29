@@ -26,6 +26,13 @@ enum RunningCalorieCalculator {
         return Int(calories.rounded())
     }
     
+    static func calculateCalories(distanceKm: Double, durationMinutes: Int, bodyWeightKg: Double? = nil) -> Int {
+        if distanceKm <= 0.01 { return 0 }
+        let weight = bodyWeightKg ?? getUserWeight()
+        let calories = distanceKm * weight * 1.036
+        return Int(calories.rounded())
+    }
+    
     static func estimateDurationMinutes(distanceKm: Double, paceMinPerKm: Double = 6.0) -> Int {
         if distanceKm <= 0.02 { return 0 }
         return max(1, Int((distanceKm * paceMinPerKm).rounded()))

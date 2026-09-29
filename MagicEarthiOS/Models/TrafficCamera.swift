@@ -8,6 +8,12 @@ struct TrafficCamera: Identifiable, Equatable {
     let speedLimitKmh: Int
     let type: CameraType
     
+    var speedLimit: Int { speedLimitKmh }
+    
+    static var vietnamCameras: [TrafficCamera] {
+        return TrafficCameraRepository.shared.cameras
+    }
+    
     enum CameraType: String {
         case speed = "Tốc độ"
         case redLight = "Đèn đỏ"

@@ -31,7 +31,7 @@ class NavigationSession: ObservableObject {
             
         LocationManager.shared.$currentSpeedKmh
             .sink { [weak self] speed in
-                self?.currentSpeedKmh = speed
+                self?.currentSpeedKmh = Double(speed)
             }
             .store(in: &cancellables)
     }

@@ -50,7 +50,7 @@ class LiveTrafficEngine: ObservableObject {
         // Check speeding
         let speed = LocationManager.shared.currentSpeedKmh
         let limit = NavigationSession.shared.speedLimitKmh
-        if speed > Double(limit) + 5 {
+        if speed > limit + 5 {
             if !isSpeeding {
                 isSpeeding = true
                 VoiceGuidanceManager.shared.speak("Cảnh báo: Bạn đang chạy quá tốc độ quy định!")

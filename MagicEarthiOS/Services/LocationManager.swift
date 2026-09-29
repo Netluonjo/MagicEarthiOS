@@ -7,6 +7,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     private let locationManager = CLLocationManager()
     
+    @Published var userLocation: CLLocation?
     @Published var currentLocation: CLLocationCoordinate2D?
     @Published var currentHeading: CLLocationDirection = 0
     @Published var currentSpeedKmh: Int = 0
@@ -50,6 +51,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
+        userLocation = location
         currentLocation = location.coordinate
         
         let speed = location.speed // meters per second
