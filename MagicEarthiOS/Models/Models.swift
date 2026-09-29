@@ -91,6 +91,10 @@ struct Waypoint: Identifiable, Equatable {
     let id = UUID()
     var coordinate: CLLocationCoordinate2D
     var name: String
+    
+    static func == (lhs: Waypoint, rhs: Waypoint) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
 
 // MARK: - Commercial Truck Config
@@ -140,6 +144,10 @@ struct CommunityIncident: Identifiable, Equatable {
     var coordinate: CLLocationCoordinate2D
     var timestamp: Date = Date()
     var confirmations: Int = 1
+    
+    static func == (lhs: CommunityIncident, rhs: CommunityIncident) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
 
 // MARK: - POI Item
@@ -150,6 +158,17 @@ struct POIItem: Identifiable, Equatable {
     var subtitle: String
     var coordinate: CLLocationCoordinate2D
     var distanceMeters: Double = 0
+    
+    static func == (lhs: POIItem, rhs: POIItem) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
+// MARK: - CoreLocation Equatable Extension
+extension CLLocationCoordinate2D: Equatable {
+    public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+        return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
+    }
 }
 
 // MARK: - Map Style Types
